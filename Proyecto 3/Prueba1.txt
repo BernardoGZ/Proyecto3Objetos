@@ -1,2 +1,12 @@
 101 Cien_aÃƒÂ±os_de_soledad L 122 Gabriel_Garcia_Marquez
 102 Harry_Potter_Serie L 435 JK_Rowling
+103 Los_tres_mosqueteros L 500 Alejandro_Dumas
+104 El_retrato_de_Dorian_Gray L 250 Oscar_Wilde
+202 The_Bodyguard D 107 accion
+203 El_fantasma_de_la_opera D 103 drama
+204 Fractura D 120 suspenso
+205 Interstellar D 120 ciencia
+301 Visual_Studio_2019 S 1 Windows
+302 Word_8 S 2 Windows
+303 Unity S 3 MacOS
+304 Processing S 3 Windows

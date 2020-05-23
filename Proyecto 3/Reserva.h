@@ -21,6 +21,8 @@ public:
 	//calculaFechabla aun no esta terminado.
 	Fecha calculaFechaFinReserva(int dias);
 
+	void muestraDatos();
+
 private:
 	int idMaterial, idCliente;
 	Fecha fechaReservacion;
@@ -48,4 +50,11 @@ Fecha Reserva::calculaFechaFinReserva(int dias)
 	f2 = fechaReservacion + dias;
 
 	return f2;
+}
+
+void Reserva::muestraDatos()
+{
+	cout << "\nID del Cliente: " << idCliente << endl;
+	cout << "ID del Material: " << idMaterial << endl;
+	cout << "Fecha de reservacion: " << fechaReservacion << endl;
 }

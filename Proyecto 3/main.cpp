@@ -16,14 +16,17 @@ int main()
 	Libro libro;
 	Disco disco;
 	Software soft;
-	int x, y, z, i = 0, numMat = 0;
+	Reserva reserva;
+	Fecha fecha;
+	int x, y, z, i = 0, numMat = 0, numReserv = 0;
 
 	string a,b ,c, line;
-	char m;
+	char n;
 	
+	//Lista de Materiales.
 	ifstream txtMaterial;
 	txtMaterial.open("Material.txt");
-
+	
 	while (getline(txtMaterial, line))
 	{	
 		//Set Id
@@ -169,15 +172,69 @@ int main()
 		i++;
 	}
 
+	txtMaterial.close();
+
 	i = 0;
 
-	while (i < numMat)
+	/*while (i < numMat)
 	{
 		listaMateriales[i]->muestraDatos();
 		i++;
+	}*/
+
+	//Lista de Reservaciones.
+	ifstream txtReserva;
+	txtReserva.open("Prueba2.txt");
+
+	i = 0;
+	x = 0;
+
+	//Breakpoint. Se toman bien los datos, pero los dias en las fechas se estan mostrando mal.
+	while (getline(txtReserva, line))
+	{
+		//Set dia mes y anio
+		y = x;
+		x = line.find(' ');
+		a = line.substr(y, x);
+		line.erase(x, 1);
+		fecha.setDia(stoi(a));
+
+		y = x;
+		x = line.find(' ');
+		a = line.substr(y, x);
+		line.erase(x, 1);
+		fecha.setMes(stoi(a));
+
+		y = x;
+		x = line.find(' ');
+		a = line.substr(y, x);
+		line.erase(x, 1);
+		fecha.setAnio(stoi(a));
+
+		reserva.setFechaReserv(fecha);
+
+		//Set ID del Material
+		y = x;
+		x = line.find(' ');
+		a = line.substr(y, x);
+		line.erase(x, 1);
+		reserva.setIdM(stoi(a));
+
+		//Set ID del Cliente. Este es el ultimo dato, asi que ya no se busca el espacio
+		y = x;		
+		a = line.substr(y, line.length());
+		line.erase(x, 1);
+		reserva.setIdC(stoi(a));
+
+		listaReservaciones[i] = &reserva;
+		listaReservaciones[i]->muestraDatos();
+
+		numReserv++;
+		i++;
+		
 	}
 
-	txtMaterial.close();
+	
 
 
 }
