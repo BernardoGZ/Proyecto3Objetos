@@ -1,10 +1,19 @@
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "Software.h"
 #include "Disco.h"
 #include "Libro.h"
 #include "Reserva.h"
-#include <fstream>
 
-int arreglosMyR()
+using namespace std;
+
+//El programa no debbugea. Haciendo pruebas, al hacer el debug VS crea un .exe para ejecutarse (yo creo que el cuadrito negro).
+//Si hago algo simple como imprimir un hola, el .exe si se genera. Pero como no lo he corrido hasta ahora,
+//el archivo no se ha generado. Puedo correrlo con algo simple, y el .exe se guardara con ese codigo que corre
+//Necesito ayudaaaaaa
+
+int main()
 {
 	Material *listaMateriales[30];
 	Reserva *listaReservaciones[60];
@@ -25,7 +34,7 @@ int arreglosMyR()
 		a = line.substr(0, x);
 		line.erase(x, 1);
 		x = y;
-		//listaMateriales[i]->setId(stoi(a));
+		listaMateriales[i]->setId(stoi(a));
 		z = stoi(a);
 
 		//Set Titulo
@@ -33,7 +42,7 @@ int arreglosMyR()
 		a = line.substr(y, x);
 		line.erase(x, 1);
 		x = y;
-		//listaMateriales[i]->setTitulo(a);
+		listaMateriales[i]->setTitulo(a);
 		b = a;
 
 		//Tipo de Material
@@ -59,8 +68,6 @@ int arreglosMyR()
 			line.erase(x, 1);
 			x = y;
 			libro.setAutor(a);
-
-			listaMateriales[i] = &libro;
 
 		}
 		

@@ -1,6 +1,5 @@
 #pragma once
 #include "Fecha.h"
-#include "Material.h"
 
 using namespace std;
 
