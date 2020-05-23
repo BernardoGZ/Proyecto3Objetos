@@ -38,7 +38,7 @@ Software::Software(int id, string tit, int ver, string so) : Material(id, tit)
 
 void Software::muestraDatos()
 {
-	cout << "ID: " << idMaterial << endl;
+	cout << "\nID: " << idMaterial << endl;
 	cout << "Titulo: " << titulo << endl;
 	cout << "Sistema Operativo: " << SO << endl;
 	cout << "Version: " << version << endl;

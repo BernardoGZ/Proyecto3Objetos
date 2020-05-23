@@ -38,7 +38,7 @@ Disco::Disco(int id, string tit, int dur, string gen) : Material(id, tit)
 
 void Disco::muestraDatos()
 {
-	cout << "ID: " << idMaterial << endl;
+	cout << "\nID: " << idMaterial << endl;
 	cout << "Titulo: " << titulo << endl;
 	cout << "Genero: " << genero << endl;
 	cout << "Duracion: " << duracion << endl;

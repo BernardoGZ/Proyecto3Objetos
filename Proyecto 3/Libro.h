@@ -38,10 +38,10 @@ Libro::Libro(int id, string tit, int nump, string aut) : Material (id, tit)
 
 void Libro::muestraDatos()
 {
-	cout << "ID: " << idMaterial << endl;
+	cout << "\nID: " << idMaterial << endl;
 	cout << "Titulo: " << titulo << endl;
 	cout << "Autor: " << autor << endl;
-	cout << "Numero de paginas: " << numPag << endl;
+	cout << "Numero de paginas: " << numPag << endl;	
 	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis
 }
 int Libro::cantidadDiasPrestamo()
