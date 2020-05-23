@@ -7,7 +7,7 @@ class Libro : public Material
 {
 public:
 	Libro();
-	Libro(int nump, string aut);
+	Libro(int id, string tit, int nump, string aut);
 
 	void setNumP(int nump) { numPag = nump;}
 	void setAutor(string aut) { autor = aut; }
@@ -23,13 +23,13 @@ private:
 	string autor;
 };
 
-Libro::Libro()
+Libro::Libro() : Material()
 {
 	numPag = 0;
 	autor = "Error";
 }
 
-Libro::Libro(int nump, string aut)
+Libro::Libro(int id, string tit, int nump, string aut) : Material (id, tit)
 {
 	numPag = nump;
 	autor = aut;
@@ -37,6 +37,8 @@ Libro::Libro(int nump, string aut)
 
 void Libro::muestraDatos()
 {
+	cout << "ID: " << idMaterial << endl;
+	cout << "Titulo: " << titulo << endl;
 	cout << "Autor: " << autor << endl;
 	cout << "Numero de paginas: " << numPag << endl;
 	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis

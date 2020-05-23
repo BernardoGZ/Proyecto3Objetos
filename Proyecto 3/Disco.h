@@ -7,7 +7,7 @@ class Disco : public Material
 {
 public:
 	Disco();
-	Disco(int dur, string gen);
+	Disco(int id, string tit, int dur, string gen);
 
 	void setDurac(int dur) { duracion = dur; }
 	void setGen(string gen) { genero = gen; }
@@ -23,13 +23,13 @@ private:
 	string genero;
 };
 
-Disco::Disco()
+Disco::Disco() : Material()
 {
 	duracion = 0;
 	genero = "Error";
 }
 
-Disco::Disco(int dur, string gen)
+Disco::Disco(int id, string tit, int dur, string gen) : Material(id, tit)
 {
 	duracion = dur;
 	genero = gen;
@@ -37,6 +37,8 @@ Disco::Disco(int dur, string gen)
 
 void Disco::muestraDatos()
 {
+	cout << "ID: " << idMaterial << endl;
+	cout << "Titulo: " << titulo << endl;
 	cout << "Genero: " << genero << endl;
 	cout << "Duracion: " << duracion << endl;
 	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis

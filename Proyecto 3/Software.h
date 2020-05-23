@@ -7,7 +7,7 @@ class Software : public Material
 {
 public:
 	Software();
-	Software(int ver, string so);
+	Software(int id, string tit, int ver, string so);
 
 	void setVersion(int ver) { version = ver; }
 	void setSO(string so) { SO = so; }
@@ -23,13 +23,13 @@ private:
 	string SO;
 };
 
-Software::Software()
+Software::Software() : Material()
 {
 	version = 0;
 	SO = "Error";
 }
 
-Software::Software(int ver, string so)
+Software::Software(int id, string tit, int ver, string so) : Material(id, tit)
 {
 	version = ver;
 	SO = so;
@@ -37,6 +37,8 @@ Software::Software(int ver, string so)
 
 void Software::muestraDatos()
 {
+	cout << "ID: " << idMaterial << endl;
+	cout << "Titulo: " << titulo << endl;
 	cout << "Sistema Operativo: " << SO << endl;
 	cout << "Version: " << version << endl;
 	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis
