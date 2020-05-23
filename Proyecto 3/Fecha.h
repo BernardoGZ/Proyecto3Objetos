@@ -20,12 +20,21 @@ public:
 
 	//setFecha para dar valor inicial a la fecha. Veamos si 'void' esta bien, o deba ser tipo 'Fecha'. 
 	void setFecha(int d, int m, int a) { dd = d; mm = m; aa = a; }
-
-	
+		
 	string nombreMes();
 
 	//operators. Nosotros podemos elegir si son miembro o friend???
 	//Ahorita los hago alch
+	Fecha operator +(int dias);
+	bool operator >(Fecha f2);
+	bool operator >=(Fecha f2);
+	bool operator <(Fecha f2);
+	bool operator <=(Fecha f2);
+	bool operator ==(Fecha f2);
+	Fecha operator >>(Fecha f2);
+	void operator <<(Fecha f2);
+
+
 
 private:
 	int dd, mm, aa;
@@ -94,3 +103,107 @@ string Fecha::nombreMes()
 
 	return mes;
 }
+
+//Operadores
+
+Fecha Fecha::operator+(int dias)
+{
+	dd = dd + dias;
+
+	if (dd > 30){ mm++;	dd = dd - 30;}
+	if (mm > 12) { aa++; mm = 1; }
+
+	Fecha f3(dd, mm, aa);
+
+	return f3;
+}
+bool Fecha::operator >(Fecha f2)
+{
+	
+	if (aa > f2.aa)
+	{ 
+		return true;
+	}
+	else if (aa == f2.aa && mm > f2.mm)
+	{
+		return true;
+	}
+	else if(aa == f2.aa && mm == f2.mm && dd > f2.dd)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool Fecha::operator >=(Fecha f2)
+{
+	if (aa >= f2.aa)
+		return true;
+	else if (mm >= f2.mm)
+		return true;
+	else if (dd >= f2.dd)
+		return true;
+	else
+		return false;
+}
+bool Fecha::operator <(Fecha f2)
+{
+	if (aa < f2.aa)
+	{
+		return true;
+	}
+	else if (aa == f2.aa && mm < f2.mm)
+	{
+		return true;
+	}
+	else if (aa == f2.aa && mm == f2.mm && dd < f2.dd)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool Fecha::operator <=(Fecha f2)
+{
+	if (aa <= f2.aa)
+		return true;
+	else if (mm <= f2.mm)
+		return true;
+	else if (dd <= f2.dd)
+		return true;
+	else
+		return false;
+}
+bool Fecha::operator ==(Fecha f2)
+{
+	if (aa == f2.aa && mm == f2.mm && dd == f2.dd)
+		return true;
+	else
+	{
+		return false;
+	}
+}
+Fecha Fecha::operator >>(Fecha f2)
+{
+	
+	/*
+	cout << "Dia:";
+	cin >> dd;
+	cout << "Mes:";
+	cin >> mm;
+	cout << "Anio:";
+	cin >> aa;
+	*/
+
+	//Fecha f1(dd, mm, aa);
+	return f2;
+}
+void Fecha::operator <<(Fecha f2)
+{
+	cout << dd << "/" << mm << "/" << aa << endl;
+}
+
