@@ -8,10 +8,6 @@
 
 using namespace std;
 
-//El programa no debbugea. Haciendo pruebas, al hacer el debug VS crea un .exe para ejecutarse (yo creo que el cuadrito negro).
-//Si hago algo simple como imprimir un hola, el .exe si se genera. Pero como no lo he corrido hasta ahora,
-//el archivo no se ha generado. Puedo correrlo con algo simple, y el .exe se guardara con ese codigo que corre
-//Necesito ayudaaaaaa
 
 int main()
 {
@@ -33,41 +29,56 @@ int main()
 		x = line.find(" ");
 		a = line.substr(0, x);
 		line.erase(x, 1);
-		x = y;
-		listaMateriales[i]->setId(stoi(a));
 		z = stoi(a);
+		y = x;
+
+		//cout << a << endl;
+		//cout << z << endl;
+
+
+		//listaMateriales[i]->setId(z);
+		
 
 		//Set Titulo
+		y = x;
 		x = line.find(" ");
 		a = line.substr(y, x);
 		line.erase(x, 1);
-		x = y;
-		listaMateriales[i]->setTitulo(a);
+		//listaMateriales[i]->setTitulo(a);
 		b = a;
 
+		//cout << a << endl;
+
 		//Tipo de Material
+		y = x;
 		x = line.find(" ");
 		a = line.substr(y, x);
-		line.erase(x, 1);
-		x = y;
-		if (a == "L")
+		line.erase(x, 1);		
+
+		//cout << a << endl;
+
+		if (a == "L")		//Este if no se esta cumpliendo
 		{
 			libro.setId(z);
 			libro.setTitulo(b);
+
 			
 			//Set Numero de paginas
 			x = line.find(" ");
 			a = line.substr(y, x);
 			line.erase(x, 1);
-			x = y;
+			y = x;
 			libro.setNumP(stoi(a));
 
 			//Set Autor
 			x = line.find(" ");
 			a = line.substr(y, x);
 			line.erase(x, 1);
-			x = y;
+			y = x;
 			libro.setAutor(a);
+
+			listaMateriales[i] = &libro;
+			listaMateriales[i]->muestraDatos();
 
 		}
 		
@@ -76,9 +87,11 @@ int main()
 	}
 
 	i = 0;
+
 	while (i < numMat)
 	{
-		listaMateriales[i]->muestraDatos();
+		//listaMateriales[i]->muestraDatos();
+		i++;
 	}
 
 	txtMaterial.close();
