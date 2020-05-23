@@ -16,13 +16,13 @@ int main()
 	Libro libro;
 	Disco disco;
 	Software soft;
-	int x, y, z, i = 0, numMat = 1;
+	int x, y, z, i = 0, numMat = 0;
 
 	string a,b ,c, line;
 	char m;
 	
 	ifstream txtMaterial;
-	txtMaterial.open("Prueba1.txt");
+	txtMaterial.open("Material.txt");
 
 	while (getline(txtMaterial, line))
 	{	
@@ -91,7 +91,77 @@ int main()
 			//cout << "Hola" << endl;
 
 			listaMateriales[i] = &libro;
-			listaMateriales[i]->muestraDatos();
+			//listaMateriales[i]->muestraDatos();
+
+		}
+
+		if (a == "D ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
+		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
+			disco.setId(z);
+			disco.setTitulo(b);
+
+			//cout << "Hola" << endl;;
+
+			//Set Duracion
+			x = line.find(" ");
+			a = line.substr(y, x);
+			line.erase(x, 1);
+			y = x;
+			disco.setDurac(stoi(a));
+			
+			//cout << "Hola" << endl;
+
+			//cout << x << endl;
+
+			//Set Genero. Es el ultimo en la linea. Asi que ya no se busca un espacio
+			//x = line.find(" ");
+			//cout << x << endl;
+			//cout << y << endl;
+			a = line.substr(y, line.length());
+			//cout << a << endl;
+			line.erase(x, 1);
+			y = x;
+			disco.setGen(a);
+
+			//cout << "Hola" << endl;
+
+			listaMateriales[i] = &disco;
+			//listaMateriales[i]->muestraDatos();
+
+		}
+		
+		if (a == "S ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
+		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
+			soft.setId(z);
+			soft.setTitulo(b);
+
+			//cout << "Hola" << endl;;
+
+			//Set Version
+			x = line.find(" ");
+			a = line.substr(y, x);
+			line.erase(x, 1);
+			y = x;
+			soft.setVersion(stoi(a));
+
+			//cout << "Hola" << endl;
+
+			//cout << x << endl;
+
+			//Set Sistema Operativo. Es el ultimo en la linea. Asi que ya no se busca un espacio
+			//x = line.find(" ");
+			//cout << x << endl;
+			//cout << y << endl;
+			a = line.substr(y, line.length());
+			//cout << a << endl;
+			line.erase(x, 1);
+			y = x;
+			soft.setSO(a);
+
+			//cout << "Hola" << endl;
+
+			listaMateriales[i] = &soft;
+			//listaMateriales[i]->muestraDatos();
 
 		}
 		
@@ -103,7 +173,7 @@ int main()
 
 	while (i < numMat)
 	{
-		//listaMateriales[i]->muestraDatos();
+		listaMateriales[i]->muestraDatos();
 		i++;
 	}
 

@@ -31,8 +31,8 @@ public:
 	bool operator <(Fecha f2);
 	bool operator <=(Fecha f2);
 	bool operator ==(Fecha f2);
-	Fecha operator >>(Fecha f2);
-	void operator <<(Fecha f2);
+	friend istream &operator >>(istream &op, Fecha &f1);
+	friend ostream &operator <<(ostream &op, Fecha f1);
 
 
 
@@ -187,23 +187,22 @@ bool Fecha::operator ==(Fecha f2)
 		return false;
 	}
 }
-Fecha Fecha::operator >>(Fecha f2)
-{
+istream &operator >>(istream &op, Fecha &f1)
+{	
 	
-	/*
 	cout << "Dia:";
-	cin >> dd;
+	op >> f1.dd;
 	cout << "Mes:";
-	cin >> mm;
+	op >> f1.mm;
 	cout << "Anio:";
-	cin >> aa;
-	*/
-
-	//Fecha f1(dd, mm, aa);
-	return f2;
+	op >> f1.aa;	
+	
+	return op;
 }
-void Fecha::operator <<(Fecha f2)
+ostream &operator <<(ostream &op, Fecha f1)
 {
-	cout << dd << "/" << mm << "/" << aa << endl;
+	op << f1.dd << "/" << f1.mm << "/" << f1.aa << endl;
+
+	return op;
 }
 
