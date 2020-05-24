@@ -8,6 +8,10 @@
 
 using namespace std;
 
+//Pendientes:
+//Hay que cambiar los arreglos para no usar getlines y usar >>. 
+//Hay que checar el problema de las fechas que no se estan capturando bien.
+//Para asi poder arreglar el case 4. 
 
 int main()
 {
@@ -19,8 +23,8 @@ int main()
 	Reserva reserva[60];
 	Fecha fecha;
 	int x, y, z, op, numMat = 0, numReserv = 0;
-	int i = 0, j = 0;
-	bool cont = true;
+	int i = 0, j = 0, k = 0;
+	bool cont = true, test = false;
 
 	string a, b, line;
 		
@@ -232,6 +236,7 @@ int main()
 	txtReserva.close();
 	i = 0;
 	j = 0;
+	k = 0;
 
 	while (cont == true)
 	{
@@ -246,6 +251,7 @@ int main()
 
 	i = 0;
 	j = 0;
+	test = false;
 		switch (op)
 		{
 		case 1:
@@ -261,7 +267,7 @@ int main()
 			while (i < numReserv)
 			{				
 				j = 0;
-				while (j < numMat)
+				while (j < numMat)	//Se buscara individualmente que el id del Material coincida.
 				{	
 					
 					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId()) //Este if no se esta aceptando. 
@@ -272,17 +278,54 @@ int main()
 						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;
 					}
 					j++;
-				}
-				
+				}				
 				i++;
-			}
+			}			
+			break;
+
+		case 3:
+			
+			cont = false;
 			
 			break;
-		case 3:
-			cont = false;
-			break;
 		case 4:
-			cont = false;
+			while (test == false)	//bool test para que se repita las veces necesarias.
+			{
+				cout << "Ingrese la fecha a buscar:" << endl;
+				cin >> fecha;
+
+				while (i < numReserv)	//Se buscara en la lista de Reserva
+				{	
+					j = 0;
+					while (j < numMat)	//Se buscara en la lista de Materiales dos veces. Una por cantidad de dias y otra por id de Mat. 
+					{
+						//k = 0;
+						if (fecha >= listaReservaciones[i]->getFechaReserv() && fecha <= listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()))
+						{	//Si la fecha dada esta entre la reservacion y la limite. Se busca con las posibles cantidades de dias extra que hay. 
+							/*while (k < numMat)
+							{
+								if (listaReservaciones[i]->getIdM() == listaMateriales[k]->getId())
+								{
+									cout << listaMateriales[k]->getTitulo() << endl;
+									cout << listaReservaciones[i]->getIdC() << endl;
+									cout << listaReservaciones[i]->getFechaReserv() << " - " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[i]->cantidadDiasPrestamo()) << endl;
+								}
+								k++;
+							}*/
+
+							if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
+							{
+								cout << listaMateriales[j]->getTitulo() << endl;
+								cout << listaReservaciones[i]->getIdC() << endl;
+								cout << listaReservaciones[i]->getFechaReserv() << " - " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[j]->cantidadDiasPrestamo()) << endl;
+							}
+							test = true;
+						}
+						j++;
+					}
+					i++;
+				}
+			}
 			break;
 		case 5:
 			cont = false;
