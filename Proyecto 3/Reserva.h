@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Fecha.h"
+//#include "Material.h"
 
 using namespace std;
 
@@ -57,4 +58,5 @@ void Reserva::muestraDatos()
 	cout << "\nID del Cliente: " << idCliente << endl;
 	cout << "ID del Material: " << idMaterial << endl;
 	cout << "Fecha de reservacion: " << fechaReservacion << endl;
+	
 }

@@ -13,19 +13,20 @@ int main()
 {
 	Material *listaMateriales[30];
 	Reserva *listaReservaciones[60];
-	Libro libro;
-	Disco disco;
-	Software soft;
-	Reserva reserva;
+	Libro libro[30];
+	Disco disco[30];
+	Software soft[30];
+	Reserva reserva[60];
 	Fecha fecha;
-	int x, y, z, i = 0, numMat = 0, numReserv = 0;
+	int x, y, z, op, numMat = 0, numReserv = 0;
+	int i = 0, j = 0;
+	bool cont = true;
 
-	string a,b ,c, line;
-	char n;
-	
+	string a, b, line;
+		
 	//Lista de Materiales.
 	ifstream txtMaterial;
-	txtMaterial.open("Material.txt");
+	txtMaterial.open("Prueba1.txt");
 	
 	while (getline(txtMaterial, line))
 	{	
@@ -65,8 +66,8 @@ int main()
 		
 		if (a == "L ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
 		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			libro.setId(z);
-			libro.setTitulo(b);
+			libro[i].setId(z);
+			libro[i].setTitulo(b);
 
 			//cout << "Hola" << endl;;
 			
@@ -75,7 +76,7 @@ int main()
 			a = line.substr(y, x);
 			line.erase(x, 1);
 			y = x;
-			libro.setNumP(stoi(a));
+			libro[i].setNumP(stoi(a));
 
 			//cout << "Hola" << endl;
 
@@ -89,19 +90,20 @@ int main()
 			//cout << a << endl;
 			line.erase(x, 1);
 			y = x;
-			libro.setAutor(a);
+			libro[i].setAutor(a);
 
 			//cout << "Hola" << endl;
 
-			listaMateriales[i] = &libro;
+			listaMateriales[i] = &libro[i];
+			
 			//listaMateriales[i]->muestraDatos();
 
 		}
 
-		if (a == "D ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
+		else if (a == "D ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
 		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			disco.setId(z);
-			disco.setTitulo(b);
+			disco[i].setId(z);
+			disco[i].setTitulo(b);
 
 			//cout << "Hola" << endl;;
 
@@ -110,7 +112,7 @@ int main()
 			a = line.substr(y, x);
 			line.erase(x, 1);
 			y = x;
-			disco.setDurac(stoi(a));
+			disco[i].setDurac(stoi(a));
 			
 			//cout << "Hola" << endl;
 
@@ -124,19 +126,19 @@ int main()
 			//cout << a << endl;
 			line.erase(x, 1);
 			y = x;
-			disco.setGen(a);
+			disco[i].setGen(a);
 
 			//cout << "Hola" << endl;
 
-			listaMateriales[i] = &disco;
+			listaMateriales[i] = &disco[i];
 			//listaMateriales[i]->muestraDatos();
 
 		}
 		
-		if (a == "S ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
+		else if (a == "S ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
 		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			soft.setId(z);
-			soft.setTitulo(b);
+			soft[i].setId(z);
+			soft[i].setTitulo(b);
 
 			//cout << "Hola" << endl;;
 
@@ -145,7 +147,7 @@ int main()
 			a = line.substr(y, x);
 			line.erase(x, 1);
 			y = x;
-			soft.setVersion(stoi(a));
+			soft[i].setVersion(stoi(a));
 
 			//cout << "Hola" << endl;
 
@@ -159,11 +161,11 @@ int main()
 			//cout << a << endl;
 			line.erase(x, 1);
 			y = x;
-			soft.setSO(a);
+			soft[i].setSO(a);
 
 			//cout << "Hola" << endl;
 
-			listaMateriales[i] = &soft;
+			listaMateriales[i] = &soft[i];
 			//listaMateriales[i]->muestraDatos();
 
 		}
@@ -171,17 +173,9 @@ int main()
 		numMat++;
 		i++;
 	}
-
 	txtMaterial.close();
 
-	i = 0;
-
-	/*while (i < numMat)
-	{
-		listaMateriales[i]->muestraDatos();
-		i++;
-	}*/
-
+	
 	//Lista de Reservaciones.
 	ifstream txtReserva;
 	txtReserva.open("Prueba2.txt");
@@ -211,30 +205,97 @@ int main()
 		line.erase(x, 1);
 		fecha.setAnio(stoi(a));
 
-		reserva.setFechaReserv(fecha);
+		reserva[i].setFechaReserv(fecha);
 
 		//Set ID del Material
 		y = x;
 		x = line.find(' ');
 		a = line.substr(y, x);
 		line.erase(x, 1);
-		reserva.setIdM(stoi(a));
+		reserva[i].setIdM(stoi(a));
 
 		//Set ID del Cliente. Este es el ultimo dato, asi que ya no se busca el espacio
 		y = x;		
 		a = line.substr(y, line.length());
 		line.erase(x, 1);
-		reserva.setIdC(stoi(a));
+		reserva[i].setIdC(stoi(a));
 
-		listaReservaciones[i] = &reserva;
-		listaReservaciones[i]->muestraDatos();
+		listaReservaciones[i] = &reserva[i];		
 
 		numReserv++;
 		i++;
 		
 	}
-
 	
+	//cout << numMat << " " << numReserv << endl;
 
+	txtReserva.close();
+	i = 0;
+	j = 0;
+
+	while (cont == true)
+	{
+		//cout << i << j;		
+
+	//Empieza el Menu
+	cout << "Bienvenido! \n Menu: " << endl;
+	cout << "1. Consultar lista de Materiales \n2. Consultar lista de Reservas \n3. Consultar las reservaciones de un material." << endl;
+	cout << "4. Consultar las reservaciones por fecha \n5. Hacer una reservacion \n6. Terminar." << endl;
+	cin >> op;
+	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
+
+	i = 0;
+	j = 0;
+		switch (op)
+		{
+		case 1:
+			while (i < numMat)
+			{
+				listaMateriales[i]->muestraDatos();
+				i++;
+			}
+
+			break;
+		case 2:
+			
+			while (i < numReserv)
+			{				
+				j = 0;
+				while (j < numMat)
+				{	
+					
+					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId()) //Este if no se esta aceptando. 
+					{
+						//cout << "Hola" << endl;
+						listaReservaciones[i]->muestraDatos();						
+						cout << listaMateriales[j]->getTitulo() << endl;
+						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;
+					}
+					j++;
+				}
+				
+				i++;
+			}
+			
+			break;
+		case 3:
+			cont = false;
+			break;
+		case 4:
+			cont = false;
+			break;
+		case 5:
+			cont = false;
+			break;
+		case 6:
+			//Aqui hay algo mas complicado de los esperado
+			cont = false;
+			break;
+		default:
+			"Por favor elige una opcion valida.";
+			break;
+		}
+	}
 
 }
+
