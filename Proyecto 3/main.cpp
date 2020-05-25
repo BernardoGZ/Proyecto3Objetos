@@ -9,15 +9,13 @@
 using namespace std;
 
 //Pendientes:
-//Hay que cambiar los arreglos para no usar getlines y usar >>. 
-//Hay que checar el problema de las fechas que no se estan capturando bien.
 //Para asi poder arreglar el case 4. 
 
 int main()
 {
-	Material *listaMateriales[30];
-	Reserva *listaReservaciones[60];
-	Libro libro[30];
+	Material* listaMateriales[30];
+	Reserva* listaReservaciones[60];
+	Libro libro[30];	//Se pudo haber usado memoria dinamica
 	Disco disco[30];
 	Software soft[30];
 	Reserva reserva[60];
@@ -26,160 +24,50 @@ int main()
 	int i = 0, j = 0, k = 0;
 	bool cont = true, test = false;
 
-	string a, b, line;
-		
-	//Lista de Materiales.
+	string a, b, c, line;
+
+	//Lista de Materiales. 
 	ifstream txtMaterial;
 	txtMaterial.open("Prueba1.txt");
-	
-	while (getline(txtMaterial, line))
-	{	
-		//Set Id
-		x = line.find(' ');
-		a = line.substr(0, x);
-		line.erase(x, 1);
-		z = stoi(a);
-		y = x;
 
-		//cout << a << endl;
-		//cout << z << endl;
-
-
-		//listaMateriales[i]->setId(z);
-		
-
-		//Set Titulo
-		x = line.find(' ');
-		//cout << x << endl;
-		a = line.substr(y, x-y); //Se pone el x-y para que no se tome de mas
-		line.erase(x, 1);
-		//listaMateriales[i]->setTitulo(a);
-		b = a;
-		y = x;
-
-		//cout << a << endl;
-		//cout << y << endl;
-
-		//Tipo de Material
-		x = line.find(" ");
-		//cout << x << endl;
-		a = line.substr(y, 2); //Aqui se pone un 2 debido a que la resta de x-y da 1, y si es un caracter el que se quiere tomar, pero substr te toma todo el resto de la linea
-		//cout << a;
-		line.erase(x, 1);
-		y = x;
-		
-		if (a == "L ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
+	while (txtMaterial >> x >> a >> b >> y >> c)
+	{
+		if (b == "L")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
 		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			libro[i].setId(z);
-			libro[i].setTitulo(b);
-
-			//cout << "Hola" << endl;;
-			
-			//Set Numero de paginas
-			x = line.find(" ");
-			a = line.substr(y, x);
-			line.erase(x, 1);
-			y = x;
-			libro[i].setNumP(stoi(a));
-
-			//cout << "Hola" << endl;
-
-			//cout << x << endl;
-
-			//Set Autor. Es el ultimo en la linea. Asi que ya no se busca un espacio
-			//x = line.find(" ");
-			//cout << x << endl;
-			//cout << y << endl;
-			a = line.substr(y, line.length());
-			//cout << a << endl;
-			line.erase(x, 1);
-			y = x;
-			libro[i].setAutor(a);
-
-			//cout << "Hola" << endl;
+			libro[i].setId(x);
+			libro[i].setTitulo(a);
+			libro[i].setNumP(y);
+			libro[i].setAutor(c);
 
 			listaMateriales[i] = &libro[i];
-			
-			//listaMateriales[i]->muestraDatos();
-
 		}
 
-		else if (a == "D ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
-		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			disco[i].setId(z);
-			disco[i].setTitulo(b);
-
-			//cout << "Hola" << endl;;
-
-			//Set Duracion
-			x = line.find(" ");
-			a = line.substr(y, x);
-			line.erase(x, 1);
-			y = x;
-			disco[i].setDurac(stoi(a));
-			
-			//cout << "Hola" << endl;
-
-			//cout << x << endl;
-
-			//Set Genero. Es el ultimo en la linea. Asi que ya no se busca un espacio
-			//x = line.find(" ");
-			//cout << x << endl;
-			//cout << y << endl;
-			a = line.substr(y, line.length());
-			//cout << a << endl;
-			line.erase(x, 1);
-			y = x;
-			disco[i].setGen(a);
-
-			//cout << "Hola" << endl;
+		else if (b == "D")
+		{
+			disco[i].setId(x);
+			disco[i].setTitulo(a);
+			disco[i].setDurac(y);
+			disco[i].setGen(c);
 
 			listaMateriales[i] = &disco[i];
-			//listaMateriales[i]->muestraDatos();
-
 		}
-		
-		else if (a == "S ")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
-		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
-			soft[i].setId(z);
-			soft[i].setTitulo(b);
 
-			//cout << "Hola" << endl;;
-
-			//Set Version
-			x = line.find(" ");
-			a = line.substr(y, x);
-			line.erase(x, 1);
-			y = x;
-			soft[i].setVersion(stoi(a));
-
-			//cout << "Hola" << endl;
-
-			//cout << x << endl;
-
-			//Set Sistema Operativo. Es el ultimo en la linea. Asi que ya no se busca un espacio
-			//x = line.find(" ");
-			//cout << x << endl;
-			//cout << y << endl;
-			a = line.substr(y, line.length());
-			//cout << a << endl;
-			line.erase(x, 1);
-			y = x;
-			soft[i].setSO(a);
-
-			//cout << "Hola" << endl;
+		else if (b == "S")
+		{
+			soft[i].setId(x);
+			soft[i].setTitulo(a);
+			soft[i].setVersion(y);
+			soft[i].setSO(c);
 
 			listaMateriales[i] = &soft[i];
-			//listaMateriales[i]->muestraDatos();
-
 		}
 		
 		numMat++;
 		i++;
-	}
+	}	
+
 	txtMaterial.close();
 
-	
 	//Lista de Reservaciones.
 	ifstream txtReserva;
 	txtReserva.open("Prueba2.txt");
@@ -187,49 +75,23 @@ int main()
 	i = 0;
 	x = 0;
 
-	//Breakpoint. Se toman bien los datos, pero los dias en las fechas se estan mostrando mal.
-	while (getline(txtReserva, line))
+	//Pendiente. Hay un problema con el mes 10. Es mes me toma dias diferentes o negativos. 
+	while (txtReserva >>x>>y>>z>>j>>k)
 	{
-		//Set dia mes y anio
-		y = x;
-		x = line.find(' ');
-		a = line.substr(y, x);
-		line.erase(x, 1);
-		fecha.setDia(stoi(a));
-
-		y = x;
-		x = line.find(' ');
-		a = line.substr(y, x);
-		line.erase(x, 1);
-		fecha.setMes(stoi(a));
-
-		y = x;
-		x = line.find(' ');
-		a = line.substr(y, x);
-		line.erase(x, 1);
-		fecha.setAnio(stoi(a));
-
+		fecha.setDia(x);
+		fecha.setMes(y);	
+		fecha.setAnio(z);
 		reserva[i].setFechaReserv(fecha);
 
-		//Set ID del Material
-		y = x;
-		x = line.find(' ');
-		a = line.substr(y, x);
-		line.erase(x, 1);
-		reserva[i].setIdM(stoi(a));
+		reserva[i].setIdM(j);
+		reserva[i].setIdC(k);
 
-		//Set ID del Cliente. Este es el ultimo dato, asi que ya no se busca el espacio
-		y = x;		
-		a = line.substr(y, line.length());
-		line.erase(x, 1);
-		reserva[i].setIdC(stoi(a));
-
-		listaReservaciones[i] = &reserva[i];		
+		listaReservaciones[i] = &reserva[i];
 
 		numReserv++;
 		i++;
-		
 	}
+
 	
 	//cout << numMat << " " << numReserv << endl;
 
@@ -248,7 +110,6 @@ int main()
 	cout << "4. Consultar las reservaciones por fecha \n5. Hacer una reservacion \n6. Terminar." << endl;
 	cin >> op;
 	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
-
 	i = 0;
 	j = 0;
 	test = false;
@@ -262,7 +123,7 @@ int main()
 			}
 
 			break;
-		case 2:
+		case 2:		//Pendiente. Hay un problema con el mes 10. Es mes me toma dias diferentes o negativos. 
 			
 			while (i < numReserv)
 			{				
@@ -271,8 +132,7 @@ int main()
 				{	
 					
 					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId()) //Este if no se esta aceptando. 
-					{
-						//cout << "Hola" << endl;
+					{						
 						listaReservaciones[i]->muestraDatos();						
 						cout << listaMateriales[j]->getTitulo() << endl;
 						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;

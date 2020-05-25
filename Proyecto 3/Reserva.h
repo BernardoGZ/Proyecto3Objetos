@@ -48,7 +48,7 @@ Reserva::Reserva(int idm, int idc, Fecha f)
 Fecha Reserva::calculaFechaFinReserva(int dias)
 {
 	Fecha f2;
-	f2 = fechaReservacion + dias;
+	f2 = getFechaReserv() + dias; //Uso de metodo ya que usando fechaReserva cada que se calculaba la fecha se guardaba como fecha Reserv
 
 	return f2;
 }
@@ -57,6 +57,5 @@ void Reserva::muestraDatos()
 {
 	cout << "\nID del Cliente: " << idCliente << endl;
 	cout << "ID del Material: " << idMaterial << endl;
-	cout << "Fecha de reservacion: " << fechaReservacion << endl;
-	
+	cout << "Fecha de reservacion: " << fechaReservacion;	
 }

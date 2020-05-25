@@ -108,11 +108,30 @@ string Fecha::nombreMes()
 
 Fecha Fecha::operator+(int dias)
 {
-	dd = dd + dias;
+	dd = dd + dias;	
 
-	if (dd > 30){ mm++;	dd = dd - 30;}
-	if (mm > 12) { aa++; mm = 1; }
+	if ((mm == 1 || mm == 3 || mm == 5 || mm == 7 || mm == 8 || mm == (10) || mm == 12) && dd > 31)
+	{
+		mm++;
+		dd = dd - 31;
+	}
+	else if (mm == 4 || mm == 6 || mm == 9 || mm == 11 && dd > 30)
+	{
+		mm++;	
+		dd = dd - 30;
+	}
+	else if (mm == 2 && dd > 28) //No se cuenta el anio bisisesto
+	{
+		mm++;
+		dd = dd - 28;
+	}
 
+	if (mm > 12)
+	{
+		aa++; 
+		mm = mm - 12;
+	}
+	
 	Fecha f3(dd, mm, aa);
 
 	return f3;
@@ -202,6 +221,7 @@ istream &operator >>(istream &op, Fecha &f1)
 ostream &operator <<(ostream &op, Fecha f1)
 {
 	op << f1.dd << "/" << f1.mm << "/" << f1.aa << endl;
+	//op << f1.dd << "/" << f1.nombreMes() << "/" << f1.aa << endl;
 
 	return op;
 }
