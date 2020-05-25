@@ -8,8 +8,6 @@
 
 using namespace std;
 
-//Pendientes:
-//Para asi poder arreglar el case 4. 
 
 int main()
 {
@@ -22,7 +20,7 @@ int main()
 	Fecha fecha;
 	int x, y, z, op, numMat = 0, numReserv = 0;
 	int i = 0, j = 0, k = 0;
-	bool cont = true, test = false;
+	bool cont = true;
 
 	string a, b, c, line;
 
@@ -75,7 +73,6 @@ int main()
 	i = 0;
 	x = 0;
 
-	//Pendiente. Hay un problema con el mes 10. Es mes me toma dias diferentes o negativos. 
 	while (txtReserva >>x>>y>>z>>j>>k)
 	{
 		fecha.setDia(x);
@@ -112,7 +109,8 @@ int main()
 	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
 	i = 0;
 	j = 0;
-	test = false;
+	bool test = false;
+	bool test2 = false;
 		switch (op)
 		{
 		case 1:
@@ -143,14 +141,47 @@ int main()
 			}			
 			break;
 
-		case 3:
-			
-			cont = false;
+		case 3:			
+			while (test == false)
+			{				
+				i = 0;
+				cout << "ID del Material" << endl;
+				cin >> x;
+
+				while (i < numMat)
+				{
+					if (listaMateriales[i]->getId() == x) //Primero se valida que el id exista
+					{	
+						j = 0;
+
+						while (j < numReserv)	//Despues de busca en la lista de reservaciones
+						{
+							if (listaMateriales[i]->getId() == listaReservaciones[j]->getIdM())
+							{
+								cout << listaMateriales[i]->getTitulo() << endl;
+								cout << listaReservaciones[j]->getFechaReserv() << " - " << (listaReservaciones[j]->getFechaReserv() + listaMateriales[i]->cantidadDiasPrestamo()) << endl;
+								
+								test2 = true;
+							}
+							j++;
+						}
+						test = true;
+						
+						if (test2 == false)
+							cout << "\nNo hay reservaciones actuales para este material. " << endl;
+					}
+					i++;
+				}
+				if (test == false)
+					cout << "\nPor favor ingrese un ID valido. " << endl;
+				
+			}
 			
 			break;
 		case 4:
 			while (test == false)	//bool test para que se repita las veces necesarias.
-			{
+			{	
+				i = 0;
 				cout << "Ingrese la fecha a buscar:" << endl;
 				cin >> fecha;
 
@@ -158,35 +189,28 @@ int main()
 				{	
 					j = 0;
 					while (j < numMat)	//Se buscara en la lista de Materiales dos veces. Una por cantidad de dias y otra por id de Mat. 
-					{
-						//k = 0;
-						if (fecha >= listaReservaciones[i]->getFechaReserv() && fecha <= listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()))
+					{						
+						if ((fecha >= listaReservaciones[i]->getFechaReserv()) && (fecha <= listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo())))
 						{	//Si la fecha dada esta entre la reservacion y la limite. Se busca con las posibles cantidades de dias extra que hay. 
-							/*while (k < numMat)
-							{
-								if (listaReservaciones[i]->getIdM() == listaMateriales[k]->getId())
-								{
-									cout << listaMateriales[k]->getTitulo() << endl;
-									cout << listaReservaciones[i]->getIdC() << endl;
-									cout << listaReservaciones[i]->getFechaReserv() << " - " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[i]->cantidadDiasPrestamo()) << endl;
-								}
-								k++;
-							}*/
 
 							if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 							{
 								cout << listaMateriales[j]->getTitulo() << endl;
 								cout << listaReservaciones[i]->getIdC() << endl;
 								cout << listaReservaciones[i]->getFechaReserv() << " - " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[j]->cantidadDiasPrestamo()) << endl;
-							}
-							test = true;
-						}
+								test = true;
+							}								
+							
+						}						
 						j++;
 					}
 					i++;
 				}
+				if (test == false)
+					cout << "\nPor favor ingrese una fecha valida. " << endl;
 			}
 			break;
+
 		case 5:
 			cont = false;
 			break;
