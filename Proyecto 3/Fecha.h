@@ -157,15 +157,25 @@ bool Fecha::operator >(Fecha f2)
 	}
 }
 bool Fecha::operator >=(Fecha f2)
-{
-	if (aa >= f2.aa)
+{		
+	if (aa > f2.aa)
 		return true;
-	else if (mm >= f2.mm)
-		return true;
-	else if (dd >= f2.dd)
-		return true;
+	else if (aa == f2.aa)
+	{
+		if (mm > f2.mm)
+			return true;
+		else if (mm == f2.mm)
+		{
+			if (dd >= f2.dd)
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 	else
-		return false;
+		return false;	
 }
 bool Fecha::operator <(Fecha f2)
 {
@@ -188,12 +198,22 @@ bool Fecha::operator <(Fecha f2)
 }
 bool Fecha::operator <=(Fecha f2)
 {
-	if (aa <= f2.aa)
+	if (aa < f2.aa)
 		return true;
-	else if (mm <= f2.mm)
-		return true;
-	else if (dd <= f2.dd)
-		return true;
+	else if (aa == f2.aa)
+	{
+		if (mm < f2.mm)
+			return true;
+		else if (mm == f2.mm)
+		{
+			if (dd <= f2.dd)
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 	else
 		return false;
 }
