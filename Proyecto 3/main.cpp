@@ -62,7 +62,9 @@ int main()
 		
 		numMat++;
 		i++;
-	}	
+	}
+
+	cout << numMat << i;
 
 	txtMaterial.close();
 
@@ -90,7 +92,7 @@ int main()
 	}
 
 	
-	//cout << numMat << " " << numReserv << endl;
+	cout << i << numReserv << endl;
 
 	txtReserva.close();
 	i = 0;
@@ -121,7 +123,7 @@ int main()
 			}
 
 			break;
-		case 2:		//Pendiente. Hay un problema con el mes 10. Es mes me toma dias diferentes o negativos. 
+		case 2:		//Pendiente. Hay un problema con el mes 10. Ese mes me toma dias diferentes o negativos. 
 			
 			while (i < numReserv)
 			{				
@@ -212,7 +214,74 @@ int main()
 			break;
 
 		case 5:
-			cont = false;
+			bool sepuedereserv;
+			cout << "Ingrese el ID de cliente: ";
+			cin >> x;
+			while (test == false)
+			{
+				cout << "Ingrese el ID del material: ";
+				cin >> y;
+				for (i; i < numMat; i++) //Practicaremos el ciclo 'for' aqui
+				{
+					if (listaMateriales[i]->getId() == y)	//Checar que el idMaterial exista
+					{
+						cout << "Ingrese la fecha a reservar: " << endl;
+						cin >> fecha;
+						Fecha f = fecha;
+						
+						bool hay = false;
+						for (j; j < numReserv; j++) //Primero, checar si el material tiene reservaciones
+						{							
+							if (listaReservaciones[j]->getIdM() == y)	//Si si hay reservaciones, hay que checar que esta no estorbe
+							{
+								cout << listaReservaciones[j]->getIdM() << " "<< y << " "<< fecha; //Pruebas
+								if ((f + (listaMateriales[i]->cantidadDiasPrestamo())) < listaReservaciones[j]->getFechaReserv() || (f > (listaReservaciones[j]->getFechaReserv() + (listaMateriales[i]->cantidadDiasPrestamo()))))
+								{
+									cout << fecha << endl; //Pruebas;
+									z = listaMateriales[i]->cantidadDiasPrestamo();	//Usare este para el mensaje final
+									sepuedereserv = true;
+								}
+								else
+								{
+									cout << "Ya esta la fecha reservada" << endl;
+									sepuedereserv = false;
+								}
+								hay = true;
+							}
+							
+						}
+						if (hay == false)	//Si no hay reservaciones automaticamente acepte la reserva
+						{
+							z = listaMateriales[i]->cantidadDiasPrestamo();
+							sepuedereserv = true;
+						}
+
+						test = true;
+					}
+				}
+				if (test == false)
+					cout << "Por favor ingrese un ID de Material valido" << endl;
+			}
+
+			if (sepuedereserv == true)
+			{
+				numReserv++;
+				cout << numReserv << endl; //Pruebas
+				cout << fecha << endl; //Pruebas
+				reserva[numReserv].setFechaReserv(fecha);
+				cout << reserva[numReserv].getFechaReserv() << endl;
+				reserva[numReserv].setIdC(x);
+				cout << reserva[numReserv].getIdC() << endl;
+				reserva[numReserv].setIdM(y);
+				cout << reserva[numReserv].getIdM() << endl;
+				listaReservaciones[numReserv] = &reserva[numReserv];
+
+				cout << "Excelente, ya quedo la reservacion para ID:" << listaReservaciones[numReserv]->getIdM() << endl;
+				cout << "\n Del: " << listaReservaciones[numReserv]->getFechaReserv() << " al: " << ((listaReservaciones[numReserv]->getFechaReserv()) + z) << endl;
+				cout << "Recuerda seleccionar 'Terminar' para guardar los cambios" << endl;
+			}
+			
+
 			break;
 		case 6:
 			//Aqui hay algo mas complicado de los esperado
