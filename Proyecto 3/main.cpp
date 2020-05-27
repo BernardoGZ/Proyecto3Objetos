@@ -103,7 +103,7 @@ int main()
 		//cout << i << j;		
 
 	//Empieza el Menu
-	cout << "Bienvenido! \n Menu: " << endl;
+	cout << "\nBienvenido! \n Menu: " << endl;
 	cout << "1. Consultar lista de Materiales \n2. Consultar lista de Reservas \n3. Consultar las reservaciones de un material." << endl;
 	cout << "4. Consultar las reservaciones por fecha \n5. Hacer una reservacion \n6. Terminar." << endl;
 	cin >> op;
@@ -123,19 +123,19 @@ int main()
 
 			break;
 		case 2: //Listo
-			
+			//cout << numReserv << endl; //Pruebas
 			while (i < numReserv)
 			{				
 				j = 0;
 				while (j < numMat)	//Se buscara individualmente que el id del Material coincida.
 				{	
-					
+					//cout << "Holi" << endl; //Pruebas.
 					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 					{						
 						listaReservaciones[i]->muestraDatos();						
 						cout << listaMateriales[j]->getTitulo() << endl;
 						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;
-						cout << i;
+						//cout << i;
 					}
 					j++;
 				}				
@@ -239,19 +239,22 @@ int main()
 						{							
 							if (listaReservaciones[j]->getIdM() == y)	//Si si hay reservaciones, hay que checar que esta no estorbe
 							{
-								cout << listaReservaciones[j]->getIdM() << " "<< y << " "<< fecha; //Pruebas
-								if ((f + (listaMateriales[i]->cantidadDiasPrestamo())) < listaReservaciones[j]->getFechaReserv() || (f > (listaReservaciones[j]->getFechaReserv() + (listaMateriales[i]->cantidadDiasPrestamo()))))
+								//cout << listaReservaciones[j]->getIdM() << " "<< y << " "<< fecha; //Pruebas
+								if (((f + (listaMateriales[i]->cantidadDiasPrestamo())) < listaReservaciones[j]->getFechaReserv() ) || (fecha > (listaReservaciones[j]->getFechaReserv() + (listaMateriales[i]->cantidadDiasPrestamo()))))
 								{
-									cout << fecha << endl; //Pruebas;
+									//cout << fecha << endl; //Pruebas;
 									z = listaMateriales[i]->cantidadDiasPrestamo();	//Usare este para el mensaje final
 									sepuedereserv = true;
 								}
 								else
 								{
 									cout << "Ya esta la fecha reservada" << endl;
-									sepuedereserv = false;
+									sepuedereserv = false;									
 								}
 								hay = true;
+
+								if (sepuedereserv == false)	// Si la fecha ya esta reservada, que pare la busqueda.
+									break;
 							}
 							
 						}
@@ -269,14 +272,10 @@ int main()
 			}
 
 			if (sepuedereserv == true)
-			{
-				numReserv++;
+			{				
 				//cout << numReserv << endl; //Pruebas
 				//cout << fecha << endl; //Pruebas
-				reserva[numReserv].setFechaReserv(fecha);
-				cout << reserva[numReserv].getFechaReserv().getDia();
-				cout << reserva[numReserv].getFechaReserv().getMes();
-				cout << reserva[numReserv].getFechaReserv().getAnio();
+				reserva[numReserv].setFechaReserv(fecha);				
 				//cout << reserva[numReserv].getFechaReserv() << endl;
 				reserva[numReserv].setIdC(x);
 				//cout << reserva[numReserv].getIdC() << endl;
@@ -288,6 +287,8 @@ int main()
 				cout << "Excelente, ya quedo la reservacion para ID:" << listaReservaciones[numReserv]->getIdM() << endl;
 				cout << "\n Del: " << listaReservaciones[numReserv]->getFechaReserv() << " al: " << ((listaReservaciones[numReserv]->getFechaReserv()) + z) << endl;
 				cout << "Recuerda seleccionar 'Terminar' para guardar los cambios" << endl;
+				
+				numReserv++;
 			}
 			
 
