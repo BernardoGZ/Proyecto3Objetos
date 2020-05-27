@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 int main()
 {
 	Material* listaMateriales[30];
@@ -115,7 +114,7 @@ int main()
 	bool test2 = false;
 		switch (op)
 		{
-		case 1:
+		case 1: //Listo
 			while (i < numMat)
 			{
 				listaMateriales[i]->muestraDatos();
@@ -123,7 +122,7 @@ int main()
 			}
 
 			break;
-		case 2:		//Pendiente. Hay un problema con el mes 10. Ese mes me toma dias diferentes o negativos. 
+		case 2: //Listo
 			
 			while (i < numReserv)
 			{				
@@ -131,11 +130,12 @@ int main()
 				while (j < numMat)	//Se buscara individualmente que el id del Material coincida.
 				{	
 					
-					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId()) //Este if no se esta aceptando. 
+					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 					{						
 						listaReservaciones[i]->muestraDatos();						
 						cout << listaMateriales[j]->getTitulo() << endl;
 						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;
+						cout << i;
 					}
 					j++;
 				}				
@@ -143,7 +143,7 @@ int main()
 			}			
 			break;
 
-		case 3:			
+		case 3:	//Listo
 			while (test == false)
 			{				
 				i = 0;
@@ -180,13 +180,15 @@ int main()
 			}
 			
 			break;
-		case 4:
+		case 4:	//Listo
 			while (test == false)	//bool test para que se repita las veces necesarias.
 			{	
 				i = 0;
 				cout << "Ingrese la fecha a buscar:" << endl;
 				cin >> fecha;
-
+				if (cin.fail() == 1) { cin.clear(); cin.ignore(); test = false; }
+				else{test = true; }
+				Fecha f = fecha;
 				while (i < numReserv)	//Se buscara en la lista de Reserva
 				{	
 					j = 0;
@@ -194,22 +196,25 @@ int main()
 					{						
 						if ((fecha >= listaReservaciones[i]->getFechaReserv()) && (fecha <= listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo())))
 						{	//Si la fecha dada esta entre la reservacion y la limite. Se busca con las posibles cantidades de dias extra que hay. 
-
+							//cout << "Hola" << endl; //Pruebas.
 							if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 							{
-								cout << listaMateriales[j]->getTitulo() << endl;
-								cout << listaReservaciones[i]->getIdC() << endl;
-								cout << listaReservaciones[i]->getFechaReserv() << " - " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[j]->cantidadDiasPrestamo()) << endl;
-								test = true;
+								cout << "Material: "<< listaMateriales[j]->getTitulo() << endl;
+								cout << "ID del cliente:" << listaReservaciones[i]->getIdC() << endl;
+								cout << "Reserva del:  " << listaReservaciones[i]->getFechaReserv() << " al " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[j]->cantidadDiasPrestamo()) << endl;
+								test2 = true;
 							}								
 							
-						}						
+						}
+						
 						j++;
 					}
 					i++;
 				}
 				if (test == false)
 					cout << "\nPor favor ingrese una fecha valida. " << endl;
+				if (test2 == false)
+					cout << "\nNo se encontró la fecha ingresada. " << endl;
 			}
 			break;
 
@@ -221,7 +226,7 @@ int main()
 			{
 				cout << "Ingrese el ID del material: ";
 				cin >> y;
-				for (i; i < numMat; i++) //Practicaremos el ciclo 'for' aqui
+				for (i=0; i < numMat; i++) //Practicaremos el ciclo 'for' aqui
 				{
 					if (listaMateriales[i]->getId() == y)	//Checar que el idMaterial exista
 					{
@@ -230,7 +235,7 @@ int main()
 						Fecha f = fecha;
 						
 						bool hay = false;
-						for (j; j < numReserv; j++) //Primero, checar si el material tiene reservaciones
+						for (j=0; j < numReserv; j++) //Primero, checar si el material tiene reservaciones
 						{							
 							if (listaReservaciones[j]->getIdM() == y)	//Si si hay reservaciones, hay que checar que esta no estorbe
 							{
@@ -266,15 +271,19 @@ int main()
 			if (sepuedereserv == true)
 			{
 				numReserv++;
-				cout << numReserv << endl; //Pruebas
-				cout << fecha << endl; //Pruebas
+				//cout << numReserv << endl; //Pruebas
+				//cout << fecha << endl; //Pruebas
 				reserva[numReserv].setFechaReserv(fecha);
-				cout << reserva[numReserv].getFechaReserv() << endl;
+				cout << reserva[numReserv].getFechaReserv().getDia();
+				cout << reserva[numReserv].getFechaReserv().getMes();
+				cout << reserva[numReserv].getFechaReserv().getAnio();
+				//cout << reserva[numReserv].getFechaReserv() << endl;
 				reserva[numReserv].setIdC(x);
-				cout << reserva[numReserv].getIdC() << endl;
+				//cout << reserva[numReserv].getIdC() << endl;
 				reserva[numReserv].setIdM(y);
-				cout << reserva[numReserv].getIdM() << endl;
+				//cout << reserva[numReserv].getIdM() << endl;
 				listaReservaciones[numReserv] = &reserva[numReserv];
+				//listaReservaciones[numReserv]->muestraDatos();
 
 				cout << "Excelente, ya quedo la reservacion para ID:" << listaReservaciones[numReserv]->getIdM() << endl;
 				cout << "\n Del: " << listaReservaciones[numReserv]->getFechaReserv() << " al: " << ((listaReservaciones[numReserv]->getFechaReserv()) + z) << endl;
