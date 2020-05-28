@@ -100,8 +100,6 @@ int main()
 
 	while (cont == true)
 	{
-		//cout << i << j;		
-
 	//Empieza el Menu
 	cout << "\nBienvenido! \n Menu: " << endl;
 	cout << "1. Consultar lista de Materiales \n2. Consultar lista de Reservas \n3. Consultar las reservaciones de un material." << endl;
@@ -110,8 +108,10 @@ int main()
 	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
 	i = 0;
 	j = 0;
+	k = 0;
 	bool test = false;
 	bool test2 = false;
+	ofstream txtReserOut;
 		switch (op)
 		{
 		case 1: //Listo
@@ -218,7 +218,7 @@ int main()
 			}
 			break;
 
-		case 5:
+		case 5: //Listo
 			bool sepuedereserv;
 			cout << "Ingrese el ID de cliente: ";
 			cin >> x;
@@ -239,10 +239,8 @@ int main()
 						{							
 							if (listaReservaciones[j]->getIdM() == y)	//Si si hay reservaciones, hay que checar que esta no estorbe
 							{
-								//cout << listaReservaciones[j]->getIdM() << " "<< y << " "<< fecha; //Pruebas
 								if (((f + (listaMateriales[i]->cantidadDiasPrestamo())) < listaReservaciones[j]->getFechaReserv() ) || (fecha > (listaReservaciones[j]->getFechaReserv() + (listaMateriales[i]->cantidadDiasPrestamo()))))
-								{
-									//cout << fecha << endl; //Pruebas;
+								{									
 									z = listaMateriales[i]->cantidadDiasPrestamo();	//Usare este para el mensaje final
 									sepuedereserv = true;
 								}
@@ -272,29 +270,39 @@ int main()
 			}
 
 			if (sepuedereserv == true)
-			{				
-				//cout << numReserv << endl; //Pruebas
-				//cout << fecha << endl; //Pruebas
+			{					
 				reserva[numReserv].setFechaReserv(fecha);				
-				//cout << reserva[numReserv].getFechaReserv() << endl;
 				reserva[numReserv].setIdC(x);
-				//cout << reserva[numReserv].getIdC() << endl;
 				reserva[numReserv].setIdM(y);
-				//cout << reserva[numReserv].getIdM() << endl;
 				listaReservaciones[numReserv] = &reserva[numReserv];
-				//listaReservaciones[numReserv]->muestraDatos();
 
 				cout << "Excelente, ya quedo la reservacion para ID:" << listaReservaciones[numReserv]->getIdM() << endl;
 				cout << "\n Del: " << listaReservaciones[numReserv]->getFechaReserv() << " al: " << ((listaReservaciones[numReserv]->getFechaReserv()) + z) << endl;
 				cout << "Recuerda seleccionar 'Terminar' para guardar los cambios" << endl;
 				
 				numReserv++;
-			}
-			
+			}	
 
 			break;
-		case 6:
-			//Aqui hay algo mas complicado de los esperado
+		case 6:			
+			txtReserOut.open("Prueba2.txt");
+
+			while (i < numReserv)
+			{
+				x = listaReservaciones[i]->getFechaReserv().getDia();
+				y = listaReservaciones[i]->getFechaReserv().getMes();
+				z = listaReservaciones[i]->getFechaReserv().getAnio();
+				j = listaReservaciones[i]->getIdM();
+				k = listaReservaciones[i]->getIdC();
+				
+				txtReserOut << x << " " << y << " " << z << " " << j << " " << k << endl;
+
+				i++;
+			}
+
+			txtReserOut.close();	
+
+			cout << "\n\tCambios guardados. Gracias!" << endl;
 			cont = false;
 			break;
 		default:
