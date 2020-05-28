@@ -236,7 +236,7 @@ istream &operator >>(istream &op, Fecha &f1)
 }
 ostream &operator <<(ostream &op, Fecha f1)
 {
-	op << f1.dd << "/" << f1.mm << "/" << f1.aa << endl;
+	op << f1.dd << "/" << f1.nombreMes() << "/" << f1.aa << endl;
 	return op;
 }
 

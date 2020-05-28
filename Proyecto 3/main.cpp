@@ -302,7 +302,7 @@ int main()
 			cont = false;
 			break;
 		default:
-			"Por favor elige una opcion valida.";
+			cout << "Por favor elige una opcion valida." << endl;
 			break;
 		}
 	}
