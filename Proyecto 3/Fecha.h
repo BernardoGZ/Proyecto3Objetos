@@ -111,7 +111,7 @@ Fecha Fecha::operator+(int dias)
 		mm++;
 		dd = dd - 31;
 	}
-	else if (mm == 4 || mm == 6 || mm == 9 || mm == 11 && dd > 30)
+	else if ((mm == 4 || mm == 6 || mm == 9 || mm == 11) && dd > 30)
 	{
 		mm++;	
 		dd = dd - 30;

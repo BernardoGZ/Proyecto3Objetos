@@ -93,10 +93,13 @@ int main()
 	while (cont == true)
 	{
 	//Empieza el Menu
-	cout << "\nBienvenido! \n Menu: " << endl;
+	cout << "--------------------------------------" << endl;
+	cout << "Bienvenido! \nMenu: " << endl;
 	cout << "1. Consultar lista de Materiales \n2. Consultar lista de Reservas \n3. Consultar las reservaciones de un material." << endl;
 	cout << "4. Consultar las reservaciones por fecha \n5. Hacer una reservacion \n6. Terminar." << endl;
+	cout << "-------------------------------------- " << endl;
 	cin >> op;
+	cout << "-------------------------------------- " << endl;
 	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
 
 	i = 0;
@@ -141,7 +144,7 @@ int main()
 			while (test == false)
 			{				
 				i = 0;
-				cout << "ID del Material" << endl;
+				cout << "ID del Material: ";
 				cin >> x;
 
 				while (i < numMat)
@@ -194,7 +197,7 @@ int main()
 							
 							if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 							{
-								cout << "Material: "<< listaMateriales[j]->getTitulo() << endl;
+								cout << "\nMaterial: "<< listaMateriales[j]->getTitulo() << endl;
 								cout << "ID del cliente:" << listaReservaciones[i]->getIdC() << endl;
 								cout << "Reserva del:  " << listaReservaciones[i]->getFechaReserv() << " al " << (listaReservaciones[i]->getFechaReserv() + listaMateriales[j]->cantidadDiasPrestamo()) << endl;
 								test2 = true;
