@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include "Fecha.h"
-//#include "Material.h"
 
 using namespace std;
 
@@ -19,7 +18,6 @@ public:
 	int getIdC() { return idCliente; }
 	Fecha getFechaReserv() { return fechaReservacion; }
 
-	//calculaFechabla aun no esta terminado.
 	Fecha calculaFechaFinReserva(int dias);
 
 	void muestraDatos();
@@ -48,7 +46,7 @@ Reserva::Reserva(int idm, int idc, Fecha f)
 Fecha Reserva::calculaFechaFinReserva(int dias)
 {
 	Fecha f2;
-	f2 = getFechaReserv() + dias; //Uso de metodo ya que usando fechaReserva cada que se calculaba la fecha se guardaba como fecha Reserv
+	f2 = getFechaReserv() + dias; //Uso de metodo() ya que usando fechaReserva cada que se calculaba la fecha se guardaba en la misma var.
 
 	return f2;
 }

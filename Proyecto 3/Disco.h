@@ -42,7 +42,7 @@ void Disco::muestraDatos()
 	cout << "Titulo: " << titulo << endl;
 	cout << "Genero: " << genero << endl;
 	cout << "Duracion: " << duracion << endl;
-	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis
+	
 }
 int Disco::cantidadDiasPrestamo()
 {

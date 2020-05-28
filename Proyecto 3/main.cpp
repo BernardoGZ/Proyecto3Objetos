@@ -25,12 +25,12 @@ int main()
 
 	//Lista de Materiales. 
 	ifstream txtMaterial;
-	txtMaterial.open("Prueba1.txt");
+	txtMaterial.open("Material.txt");
 
 	while (txtMaterial >> x >> a >> b >> y >> c)
 	{
-		if (b == "L")		//El valor de 'a' toma el espacio despues de 'L', debido a que un string es mas de un character
-		{					//Si quiesieramos resolverlo deberiamos convertir el string a un arreglo de char. O solo hacer esto "L ".
+		if (b == "L")		
+		{
 			libro[i].setId(x);
 			libro[i].setTitulo(a);
 			libro[i].setNumP(y);
@@ -61,15 +61,13 @@ int main()
 		
 		numMat++;
 		i++;
-	}
-
-	cout << numMat << i;
+	}	
 
 	txtMaterial.close();
 
 	//Lista de Reservaciones.
 	ifstream txtReserva;
-	txtReserva.open("Prueba2.txt");
+	txtReserva.open("Reserva.txt");
 
 	i = 0;
 	x = 0;
@@ -90,14 +88,8 @@ int main()
 		i++;
 	}
 
-	
-	cout << i << numReserv << endl;
-
 	txtReserva.close();
-	i = 0;
-	j = 0;
-	k = 0;
-
+	
 	while (cont == true)
 	{
 	//Empieza el Menu
@@ -106,43 +98,45 @@ int main()
 	cout << "4. Consultar las reservaciones por fecha \n5. Hacer una reservacion \n6. Terminar." << endl;
 	cin >> op;
 	if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Validar que se ingrese correctamente
+
 	i = 0;
 	j = 0;
 	k = 0;
+
 	bool test = false;
 	bool test2 = false;
 	ofstream txtReserOut;
+
 		switch (op)
 		{
 		case 1: //Listo
+			
 			while (i < numMat)
 			{
 				listaMateriales[i]->muestraDatos();
 				i++;
 			}
-
+			
 			break;
 		case 2: //Listo
-			//cout << numReserv << endl; //Pruebas
+		
 			while (i < numReserv)
 			{				
 				j = 0;
 				while (j < numMat)	//Se buscara individualmente que el id del Material coincida.
-				{	
-					//cout << "Holi" << endl; //Pruebas.
+				{						
 					if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 					{						
 						listaReservaciones[i]->muestraDatos();						
 						cout << listaMateriales[j]->getTitulo() << endl;
-						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;
-						//cout << i;
+						cout << "Fecha limite: " << listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo()) << endl;						
 					}
 					j++;
 				}				
 				i++;
 			}			
+			
 			break;
-
 		case 3:	//Listo
 			while (test == false)
 			{				
@@ -181,7 +175,7 @@ int main()
 			
 			break;
 		case 4:	//Listo
-			while (test == false)	//bool test para que se repita las veces necesarias.
+			while (test == false)
 			{	
 				i = 0;
 				cout << "Ingrese la fecha a buscar:" << endl;
@@ -189,6 +183,7 @@ int main()
 				if (cin.fail() == 1) { cin.clear(); cin.ignore(); test = false; }
 				else{test = true; }
 				Fecha f = fecha;
+
 				while (i < numReserv)	//Se buscara en la lista de Reserva
 				{	
 					j = 0;
@@ -196,7 +191,7 @@ int main()
 					{						
 						if ((fecha >= listaReservaciones[i]->getFechaReserv()) && (fecha <= listaReservaciones[i]->calculaFechaFinReserva(listaMateriales[j]->cantidadDiasPrestamo())))
 						{	//Si la fecha dada esta entre la reservacion y la limite. Se busca con las posibles cantidades de dias extra que hay. 
-							//cout << "Hola" << endl; //Pruebas.
+							
 							if (listaReservaciones[i]->getIdM() == listaMateriales[j]->getId())
 							{
 								cout << "Material: "<< listaMateriales[j]->getTitulo() << endl;
@@ -216,6 +211,7 @@ int main()
 				if (test2 == false)
 					cout << "\nNo se encontró la fecha ingresada. " << endl;
 			}
+
 			break;
 
 		case 5: //Listo
@@ -284,8 +280,8 @@ int main()
 			}	
 
 			break;
-		case 6:			
-			txtReserOut.open("Prueba2.txt");
+		case 6:	//Listo		
+			txtReserOut.open("Reserva.txt");
 
 			while (i < numReserv)
 			{

@@ -18,13 +18,11 @@ public:
 	int getMes() { return mm; }
 	int getAnio() { return aa; }
 
-	//setFecha para dar valor inicial a la fecha. Veamos si 'void' esta bien, o deba ser tipo 'Fecha'. 
 	void setFecha(int d, int m, int a) { dd = d; mm = m; aa = a; }
 		
 	string nombreMes();
 
-	//operators. Nosotros podemos elegir si son miembro o friend???
-	//Ahorita los hago alch
+	//Operadores
 	Fecha operator +(int dias);
 	bool operator >(Fecha f2);
 	bool operator >=(Fecha f2);
@@ -33,8 +31,6 @@ public:
 	bool operator ==(Fecha f2);
 	friend istream &operator >>(istream &op, Fecha &f1);
 	friend ostream &operator <<(ostream &op, Fecha f1);
-
-
 
 private:
 	int dd, mm, aa;
@@ -241,8 +237,6 @@ istream &operator >>(istream &op, Fecha &f1)
 ostream &operator <<(ostream &op, Fecha f1)
 {
 	op << f1.dd << "/" << f1.mm << "/" << f1.aa << endl;
-	//op << f1.dd << "/" << f1.nombreMes() << "/" << f1.aa << endl;
-
 	return op;
 }
 

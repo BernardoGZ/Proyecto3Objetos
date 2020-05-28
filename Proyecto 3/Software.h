@@ -42,7 +42,6 @@ void Software::muestraDatos()
 	cout << "Titulo: " << titulo << endl;
 	cout << "Sistema Operativo: " << SO << endl;
 	cout << "Version: " << version << endl;
-	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis
 }
 int Software::cantidadDiasPrestamo()
 {

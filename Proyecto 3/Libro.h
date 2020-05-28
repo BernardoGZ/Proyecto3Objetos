@@ -42,7 +42,6 @@ void Libro::muestraDatos()
 	cout << "Titulo: " << titulo << endl;
 	cout << "Autor: " << autor << endl;
 	cout << "Numero de paginas: " << numPag << endl;	
-	//Probablemente deberiamos de poner aqui la cantidad de dias, pero equis
 }
 int Libro::cantidadDiasPrestamo()
 {
